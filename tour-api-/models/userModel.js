@@ -6,7 +6,7 @@ function getAll() {
   return userArray;
 }
 
-function addOne(name, email, password, phone_number, gender, date_of_birth,membership_status) {
+function addOne(name, email, password, phone_number, gender, date_of_birth, membership_status) {
   if (!name || !email || !password || !phone_number || !gender || !date_of_birth || !membership_status) {
     return false;
   }
@@ -50,30 +50,27 @@ function deleteOneById(id) {
   const user = findById(id);
   if (user) {
     const initialLength = userArray.length;
-    userArray = userArray.filter((u) => u.id != id);
+    userArray = userArray.filter((item) => item.id != id);
     return userArray.length < initialLength;
   }
   return false;
 }
 
-// Test functions independently
+// Test functions independently (run: node models/userModel.js)
 if (require.main === module) {
-  let test = addOne(
-    {
-  "name": "Matti Seppänen",
-  "email": "matti@example.com",
-  "password": "M@45mtg$",
-  "phone_number": "+358401234567",
-  "gender": "Male",
-  "date_of_birth": "2000-01-15",
-  "membership_status": "Active"
-}
+  let result = addOne(
+    "Matti Seppänen",
+    "matti@example.com",
+    "M@45mtg$",
+    "+358401234567",
+    "Male",
+    "2000-01-15",
+    "Active"
   );
-
-  console.log(test);
+  console.log(result);
   console.log("getAll called:", getAll());
   console.log("findById called:", findById(1));
-  console.log("updateOne called:", updateOneById(1));
+  console.log("updateOne called:", updateOneById(1, { membership_status: "Paused" }));
   console.log("findById after update:", findById(1));
   console.log("deleteOneById called:", deleteOneById(1));
   console.log("findById after delete:", findById(1));
