@@ -1,59 +1,50 @@
 const Tour = require("../models/tourModel");
 
-// GET /tours
+// GET /api/tours
 const getAllTours = (req, res) => {
   const tours = Tour.getAll();
   res.json(tours);
 };
 
-// POST /tours
+// POST /api/tours
 const createTour = (req, res) => {
   const { name, info, image, price } = req.body;
   const newTour = Tour.addOne(name, info, image, price);
 
   if (newTour) {
-    res.json(201).json(newTour);
+    res.status(201).json(newTour); // 
   } else {
-    res.status(500).json({ message: "Failed to create tour" });
+    res.status(400).json({ message: "Invalid tour data" });
   }
 };
 
-// GET /tours/:tourId
+// GET /api/tours/:tourId
 const getTourById = (req, res) => {
   const tourId = req.params.tourId;
   const tour = Tour.findById(tourId);
 
-  if (tour) {
-    res.json(tour);
-  } else {
-    res.status(404).json({ message: "Tour not found" });
-  }
+  if (tour) res.json(tour);
+  else res.status(404).json({ message: "Tour not found" });
 };
 
-// PUT /tours/:tourId
+// PUT /api/tours/:tourId
 const updateTour = (req, res) => {
   const tourId = req.params.tourId;
   const { name, info, image, price } = req.body;
 
   const updatedTour = Tour.updateOneById(tourId, { name, info, image, price });
 
-  if (updatedTour) {
-    res.json(updatedTour);
-  } else {
-    res.status(404).json({ message: "Tour not found" });
-  }
+  if (updatedTour) res.json(updatedTour);
+  else res.status(404).json({ message: "Tour not found" });
 };
 
-// DELETE /tours/:tourId
+// DELETE /api/tours/:tourId
 const deleteTour = (req, res) => {
   const tourId = req.params.tourId;
   const isDeleted = Tour.deleteOneById(tourId);
 
-  if (isDeleted) {
-    res.status(204).send({ message: "Tour deleted successfully" });
-  } else {
-    res.status(404).json({ message: "Tour not found" });
-  }
+  if (isDeleted) res.status(204).send(); 
+  else res.status(404).json({ message: "Tour not found" });
 };
 
 module.exports = {
