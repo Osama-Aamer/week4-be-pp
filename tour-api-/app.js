@@ -1,19 +1,7 @@
 const express = require("express");
-const morgan = require("morgan");
-
 const app = express();
-const tourRouter = require("./routes/tourRouter");
-const userRouter = require("./routes/userRouter");
-
-
-
-
-
-
-
-app.use(express.json());
-app.use(morgan("tiny"));
-
+const tourRouter = require('./routes/tourRouter');
+const userRouter = require('./routes/userRouter');
 
 // const {
 //   getAllTours,
@@ -24,8 +12,10 @@ app.use(morgan("tiny"));
 // } = require("./controllers/tourHandlers"); 
 
 // Middleware to parse JSON
-app.use("/api/tours", tourRouter);
-app.use("/api/users", userRouter);
+app.use(express.json());
+
+app.use('/tours', tourRouter);
+app.use('/users', userRouter);
 // ROUTES
 
 // GET /tours
