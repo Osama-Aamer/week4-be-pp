@@ -8,10 +8,13 @@ const {
   updateTour,
   deleteTour,
 } = require("../controllers/tourHandlers"); 
+const auth = require('../middleware/auth');
+
 
 const router = express.Router();
 
 router.get("/", getAllTours);
+router.use(auth);
 router.post("/", createTour);
 router.get("/", getTourById);
 router.put("/", updateTour);
