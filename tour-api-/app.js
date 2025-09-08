@@ -15,7 +15,7 @@ const userRouter = require('./routes/userRouter');
 app.use(express.json());
 
 app.use('/tours', tourRouter);
-app.use('/tours', tourRouter);
+app.use('/users', userRouter);
 // ROUTES
 
 // GET /tours
